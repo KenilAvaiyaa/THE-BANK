@@ -1,0 +1,34 @@
+<!-- templates/add_loan.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Add New Loan</h2>
+<form method="POST" action="{{ url_for('add_loan') }}">
+    <div class="form-group">
+        <label for="loan_number">Loan Number:</label>
+        <input type="number" class="form-control" id="loan_number" name="loan_number" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="amount">Amount:</label>
+        <input type="number" step="0.01" class="form-control" id="amount" name="amount" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="monthly_repayment">Monthly Repayment:</label>
+        <input type="number" step="0.01" class="form-control" id="monthly_repayment" name="monthly_repayment" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="branch_id">Branch ID:</label>
+        <select class="form-control" id="branch_id" name="branch_id" required>
+            {% for branch in branches %}
+                <option value="{{ branch.BranchID }}">{{ branch.Name }} (ID: {{ branch.BranchID }})</option>
+            {% endfor %}
+        </select>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Add Loan</button>
+    <a href="{{ url_for('manage_loans') }}" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}

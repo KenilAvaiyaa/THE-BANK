@@ -1,0 +1,13 @@
+/* static/styles.css */
+
+h2 {
+    margin-bottom: 20px;
+}
+
+.table th, .table td {
+    vertical-align: middle;
+}
+
+.btn + .btn {
+    margin-left: 5px;
+}

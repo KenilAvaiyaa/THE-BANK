@@ -1,0 +1,46 @@
+<!-- templates/edit_account.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Edit Account</h2>
+<form method="POST" action="{{ url_for('edit_account', account_number=account.AccountNumber) }}">
+    <div class="form-group">
+        <label for="account_number">Account Number:</label>
+        <input type="number" class="form-control" id="account_number" name="account_number" value="{{ account.AccountNumber }}" readonly>
+    </div>
+    
+    <div class="form-group">
+        <label for="account_type">Account Type:</label>
+        <select class="form-control" id="account_type" name="account_type" required>
+            <option value="" disabled>Select account type</option>
+            <option value="Savings" {% if account.AccountType == 'Savings' %}selected{% endif %}>Savings</option>
+            <option value="Checking" {% if account.AccountType == 'Checking' %}selected{% endif %}>Checking</option>
+            <option value="Business" {% if account.AccountType == 'Business' %}selected{% endif %}>Business</option>
+            <!-- Add more account types as needed -->
+        </select>
+    </div>
+    
+    <div class="form-group">
+        <label for="balance">Balance:</label>
+        <input type="number" step="0.01" class="form-control" id="balance" name="balance" value="{{ account.Balance }}" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="last_access_date">Last Access Date:</label>
+        <input type="date" class="form-control" id="last_access_date" name="last_access_date" value="{{ account.LastAccessDate }}" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="interest_rate">Interest Rate (%):</label>
+        <input type="number" step="0.01" class="form-control" id="interest_rate" name="interest_rate" value="{{ account.InterestRate }}" required>
+    </div>
+    
+    <div class="form-group form-check">
+        <input type="checkbox" class="form-check-input" id="overdraft_flag" name="overdraft_flag" {% if account.OverdraftFlag %}checked{% endif %}>
+        <label class="form-check-label" for="overdraft_flag">Overdraft Allowed</label>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Update Account</button>
+    <a href="{{ url_for('manage_accounts') }}" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}

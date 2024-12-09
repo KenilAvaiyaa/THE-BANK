@@ -1,0 +1,36 @@
+<!-- templates/customer_dashboard.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Customer Dashboard</h2>
+<h4>Welcome, {{ customer.FirstName }} {{ customer.LastName }}!</h4>
+
+<h5>Your Accounts:</h5>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Account Number</th>
+            <th>Account Type</th>
+            <th>Balance</th>
+            <th>Last Access Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for account in accounts %}
+        <tr>
+            <td>{{ account.AccountNumber }}</td>
+            <td>{{ account.AccountType }}</td>
+            <td>${{ "{:,.2f}".format(account.Balance) }}</td>
+            <td>{{ account.LastAccessDate }}</td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="4" class="text-center">No accounts found.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{{ url_for('perform_transaction') }}" class="btn btn-primary">Perform Transaction</a>
+<a href="{{ url_for('customer_transactions') }}" class="btn btn-secondary">View Transactions</a>
+{% endblock %}

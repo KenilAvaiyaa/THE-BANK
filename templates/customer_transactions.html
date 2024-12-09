@@ -1,0 +1,36 @@
+<!-- templates/customer_transactions.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Your Transactions</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Transaction ID</th>
+            <th>Transaction Type</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Amount</th>
+            <th>Transaction Charge</th>
+            <th>Account Number</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for txn in transactions %}
+        <tr>
+            <td>{{ txn.TransactionID }}</td>
+            <td>{{ txn.TransactionType }}</td>
+            <td>{{ txn.TDate }}</td>
+            <td>{{ txn.TTime }}</td>
+            <td>${{ "{:,.2f}".format(txn.Amount) }}</td>
+            <td>${{ "{:,.2f}".format(txn.TransactionCharge) }}</td>
+            <td>{{ txn.AccountNumber }}</td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="7" class="text-center">No transactions found.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

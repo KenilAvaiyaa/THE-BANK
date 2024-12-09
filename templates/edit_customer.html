@@ -1,0 +1,86 @@
+<!-- templates/edit_customer.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Edit Customer</h2>
+<form method="POST" action="{{ url_for('edit_customer', ssn=customer.SSN) }}">
+    <div class="form-group">
+        <label for="ssn">SSN:</label>
+        <input type="number" class="form-control" id="ssn" name="ssn" value="{{ customer.SSN }}" readonly>
+    </div>
+    
+    <div class="form-group">
+        <label for="first_name">First Name:</label>
+        <input type="text" class="form-control" id="first_name" name="first_name" value="{{ customer.FirstName }}" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="middle_name">Middle Name:</label>
+        <input type="text" class="form-control" id="middle_name" name="middle_name" value="{{ customer.MiddleName }}">
+    </div>
+    
+    <div class="form-group">
+        <label for="last_name">Last Name:</label>
+        <input type="text" class="form-control" id="last_name" name="last_name" value="{{ customer.LastName }}" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="street_number">Street Number:</label>
+        <input type="text" class="form-control" id="street_number" name="street_number" value="{{ customer.StreetNumber }}" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="street_name">Street Name:</label>
+        <input type="text" class="form-control" id="street_name" name="street_name" value="{{ customer.StreetName }}" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="apartment_number">Apartment Number:</label>
+        <input type="text" class="form-control" id="apartment_number" name="apartment_number" value="{{ customer.ApartmentNumber }}">
+    </div>
+    
+    <div class="form-group">
+        <label for="city">City:</label>
+        <input type="text" class="form-control" id="city" name="city" value="{{ customer.City }}" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="state">State:</label>
+        <input type="text" class="form-control" id="state" name="state" value="{{ customer.State }}" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="zip_code">Zip Code:</label>
+        <input type="text" class="form-control" id="zip_code" name="zip_code" value="{{ customer.ZipCode }}" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="personal_banker_id">Personal Banker ID:</label>
+        <select class="form-control" id="personal_banker_id" name="personal_banker_id">
+            <option value="" {% if not customer.PersonalBankerID %}selected{% endif %}>No Personal Banker</option>
+            {% for banker in personal_bankers %}
+                <option value="{{ banker.SSN }}" {% if banker.SSN == customer.PersonalBankerID %}selected{% endif %}>
+                    {{ banker.FirstName }} {{ banker.LastName }} (SSN: {{ banker.SSN }})
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+    
+    <hr>
+    
+    <h4>User Account Details</h4>
+    
+    <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" class="form-control" id="username" name="username" value="{{ user.Username }}" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" class="form-control" id="password" name="password" value="{{ user.Password }}" required>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Update Customer</button>
+    <a href="{{ url_for('manage_customers') }}" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}
